@@ -18,6 +18,8 @@ Following services are exposed from this File Storage Server Application
 - List uploaded files
 - Search files by name, size, type
 
+
+
 # Running File Storage Server Application
 
 Currently, I am using `mediumblob` datatype in MySQL for storing files. This datatype's max size is 16Mb. In case if you want to change it, please modify it in `scripts/schema.sql`
