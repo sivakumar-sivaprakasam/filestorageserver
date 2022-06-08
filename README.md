@@ -68,15 +68,11 @@ Code coverage report can be accessed from: <project folder>/target/site
 
 # Swagger UI
 
-Swagger UI will be available for referring to documentation: 
-
-When the application launched from host machine: http://localhost:8080/swagger-ui/index.html
-When the application launched from container: http://localhost:9090/swagger-ui/index.html
+- Aplication launched from host machine: http://localhost:8080/swagger-ui/index.html
+- Application launched from container: http://localhost:9090/swagger-ui/index.html
 
 # API Documents (JSON)
 
-API Documents (JSON) will be accessible from following
-
-When the application launched from host machine: http://localhost:8080/v3/api-docs
-When the application launched from container: http://localhost:9090/v3/api-docs
+- When launched from host machine: http://localhost:8080/v3/api-docs
+- When launched from container: http://localhost:9090/v3/api-docs
 
