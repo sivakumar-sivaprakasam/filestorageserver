@@ -1,0 +1,46 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: uploader
+      MYSQL_PASSWORD: uploader
+      MYSQL_DATABASE: filesserver
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "3600:3306"    
+    expose:
+      - 3600
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - fs-net
+  springboot:
+    image: filestorageserver:0.0.1
+    container_name: fs
+    restart: on-failure
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DB: filesserver
+      MYSQL_USER: uploader
+      MYSQL_PASSWORD: uploader
+    networks:
+      - fs-net
+    ports:
+      - "9090:8080"    
+    expose:
+      - 9090
+    depends_on:
+      - mysql
+volumes:
+  mysql-data:
+networks:
+  fs-net:
