@@ -1,6 +1,6 @@
 # File Storage Server Application
 
-A simple file storage server with REST APIs
+A simple file storage server with bunch of REST APIs 
 
 Systems Required: 
 
@@ -10,7 +10,7 @@ Systems Required:
 - Docker Desktop
 - CURL or Postman
 
-Following services are exposed from this File Storage Server Application
+Following services are exposed in this application
 
 - Upload a file
 - Delete a file
@@ -18,23 +18,21 @@ Following services are exposed from this File Storage Server Application
 - List uploaded files
 - Search files by name, size, type
 
-
-
 # Running File Storage Server Application
 
-Currently, I am using `mediumblob` datatype in MySQL for storing files. This datatype's max size is 16Mb. In case if you want to change it, please modify it in `scripts/schema.sql`
+Currently, I am using `mediumblob` datatype in MySQL for storing files. This datatype's max size is 16Mb. In case if you want to store files of size more than 16Mb, please change it in `scripts/schema.sql`
 
-Also, this application accepts following mimetype files:
+Also, this application currently supports files with following mimetype:
 
 `text/plain, text/csv, application/json, application/pdf, video/mpeg, video/mp4, application/gzip, application/zip, application/x-7z-compressed`
 
-In case if you would like to allow more types of files, feel free to modify it in `application.properties`
+If you would like to add/modify types of files, you can change it in `src/main/resources/application.properties`
 
 ```bash
 server.compression.mime-types=text/plain, text/csv, application/json, application/pdf, video/mpeg, video/mp4, application/gzip, application/zip, application/x-7z-compressed
 ```
 
-## Run application in host machine
+## Build & Run application from host machine
 
 Prepare database using mysql:
 
@@ -48,7 +46,9 @@ mvn clean spring-boot:run
 
 Once the application started successfully, you can use rest client tools to test the APIs
 
-## Run Application in docker container
+## Build & Run application within docker container
+
+You dont need to do anything specific to DB. MySQL will be launched in another container and initialize the DB as per the scripts from `scripts/schema.sql` 
 
 Build image using maven command:
 
@@ -56,13 +56,15 @@ Build image using maven command:
 mvn clean package
 ```
 
-Once image is created and pushed to docker hub, you can launch the containers with docker-compose
+Once image is created and pushed to docker hub, you can verify the images by running `docker images` command
+
+Then, you can launch the containers with docker-compose
 
 ```docker
 docker-compose up -d
 ```
 
-Once the containers are started successfully, you can access the application from http://localhost:9090/files/ and you can use rest client tools to test the APIs
+Once containers are started successfully, you can access the application from http://localhost:9090/files/ and use rest client tools to test the APIs
 
 # Jacoco Code coverage
 
